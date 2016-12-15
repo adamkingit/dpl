@@ -20,7 +20,7 @@ deploy:
     provider: bluemixcf
     skip_cleanup: true
     edge:
-      source: adamikingit/dpl
+      source: adamkingit/dpl
       branch:
     manifest: manifest-us-stage.yml
     username: $BLUEMIX_USER
