@@ -20,7 +20,7 @@ deploy:
     skip_cleanup: true
     edge:
       source: adamkingit/dpl
-      branch:
+      branch: master
     manifest: manifest-uk-stage.yml
     username: $BLUEMIX_USER
     password: $BLUEMIX_PASSWORD
