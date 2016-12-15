@@ -16,16 +16,29 @@ env:
   matrix:
 
 deploy:
-  - provider: cloudfoundry
-    edge: true
+  - deploy:
+    provider: bluemixcf
+    edge:
+      source: adamikingit/dpl
+      branch: 
     manifest: manifest-us-stage.yml
     username: $BLUEMIX_USER
     password: $BLUEMIX_PASSWORD
-    api: "https://api.ng.bluemix.net"
+    region:   eu-gb
     organization: $BLUEMIX_ORG
     space: $BLUEMIX_SPACE
     on:
       branch: staging
+  # - provider: cloudfoundry
+  #   edge: true
+  #   manifest: manifest-us-stage.yml
+  #   username: $BLUEMIX_USER
+  #   password: $BLUEMIX_PASSWORD
+  #   api: "https://api.ng.bluemix.net"
+  #   organization: $BLUEMIX_ORG
+  #   space: $BLUEMIX_SPACE
+  #   on:
+  #     branch: staging
   - provider: cloudfoundry
     edge: true
     manifest: manifest-us-beta.yml
