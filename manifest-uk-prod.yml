@@ -1,0 +1,9 @@
+
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: eu-gb.mybluemix.net
+  name: echo-vcap-prod
+  host: echo-vcap-prod
+  disk_quota: 512M

@@ -1,0 +1,32 @@
+{
+  "name": "deploy-webhook",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node main.js",
+    "version": "node node_modules/node-git-version/",
+    "test": "jsonlint-cli *.json && eslint . && yamllint *.yml",
+    "build": "npm shrinkwrap"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "bunyan": "^1.8.1",
+    "express": "^4.13.4",
+    "express-bunyan-logger": "^1.3.1",
+    "github": "^7.0.0",
+    "http-status-codes": "^1.0.6",
+    "moment": "^2.15.1",
+    "prettyjson": "^1.2.1",
+    "request": "^2.72.0"
+  },
+  "engines": {
+    "node": "6.x"
+  },
+  "devDependencies": {
+    "eslint": "^3.6.1",
+    "jsonlint-cli": "^1.0.1",
+    "node-git-version": "^0.1.2",
+    "shrinkwrap": "^0.4.0",
+    "yaml-lint": "0.0.2"
+  }
+}
