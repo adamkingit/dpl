@@ -3,6 +3,6 @@ applications:
   memory: 256M
   instances: 1
   domain: eu-gb.mybluemix.net
-  name: echo-vcap-stage
-  host: echo-vcap-stage
+  name: echo-vcap-dpl
+  host: echo-vcap-dpl
   disk_quota: 512M
