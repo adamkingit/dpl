@@ -16,11 +16,11 @@ env:
 
 deploy:
   - deploy:
-    provider: bluemixcf
+    provider: bluemixcloudfoundry
     skip_cleanup: true
     edge:
       source: adamkingit/dpl
-      branch: master
+      branch: renameClass
     manifest: manifest-uk-stage.yml
     username: $BLUEMIX_USER
     password: $BLUEMIX_PASSWORD
