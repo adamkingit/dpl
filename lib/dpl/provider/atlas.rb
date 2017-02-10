@@ -27,6 +27,7 @@ module DPL
           cp $HOME/gopath/bin/atlas-upload-cli $HOME/bin/atlas-upload
         fi
       EOF
+      puts "Atlas provider loading"
 
       experimental 'Atlas'
 
