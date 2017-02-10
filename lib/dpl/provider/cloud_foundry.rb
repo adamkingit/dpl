@@ -26,12 +26,12 @@
       end
 
       def push_app
-        if @applications.nil? || @applications.length==0
-          context.shell "./cf push -f #{manifest}"
+        settings = get_cf_variable_settings
+        if settings.nil? || settings.length==0
+          context.shell get_cfpush_cmd
         else
-          settings = get_cf_variable_settings
           app_names_list = get_application_names
-          context.shell "./cf push -f #{manifest} --no-start"
+          context.shell get_cfpush_cmd << " --no-start"
           settings.each{ |set_env| context.shell "./cf set-env #{set_env[app]} #{set_env[key]} #{set_env[value]}" }
           app_names_list.each{ |appname| context.shell "./cf start #{appname}" }
         end
@@ -46,6 +46,14 @@
 
       def manifest
         options[:manifest].nil? ? "manifest.yml" : "#{options[:manifest]}"
+      end
+
+      def get_cfpush_cmd
+        cmd = "./cf push"
+        if options[:manifest]
+          cmd << " -f #{manifest}"
+        end
+        return(cmd)
       end
 
       def get_manifest
