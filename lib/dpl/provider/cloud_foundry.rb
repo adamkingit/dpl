@@ -30,6 +30,7 @@
           context.shell "./cf push -f #{manifest}"
         else
           settings = get_cf_variable_settings
+          app_names_list = get_application_names
           context.shell "./cf push -f #{manifest} --no-start"
           settings.each{ |set_env| context.shell "./cf set-env #{set_env[app]} #{set_env[key]} #{set_env[value]}" }
           app_names_list.each{ |appname| context.shell "./cf start #{appname}" }
@@ -53,14 +54,26 @@
       end
 
       def get_applications
-        cf_manifest = get_manifest
-        applications = cf_manifest['applications']
-        return applications
+        if ! defined?(@applications)
+          cf_manifest = get_manifest
+          @applications = cf_manifest['applications']
+        end
+        return @applications
+      end
+
+      def get_application_names
+        if ! defined?(@application_names)
+          @application_names = []
+          applications = get_applications
+          applications.each { |app| @application_names.push(app['name']) }
+        end
+        return @application_names
       end
 
       def get_cf_variable_settings
         env_settings = []
         if options.member?(:env)
+          app_names_list = get_application_names
           options[:env].each do |key, value|
             if value.kind_of?(Hash)
               if app_names_list.include?(key.to_s)
