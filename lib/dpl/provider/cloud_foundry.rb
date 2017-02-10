@@ -1,4 +1,6 @@
-module DPL
+  require 'yaml'
+
+  module DPL
   class Provider
     class CloudFoundry < Provider
 
@@ -13,9 +15,9 @@ module DPL
       end
 
       def check_app
-        if options[:manifest]
-          error 'Application must have a manifest.yml for unattended deployment' unless File.exists? options[:manifest]
-        end
+        error "Application must have a manifest.yml for unattended deployment. #{manifest} does not exist" unless File.exists? manifest
+        @applications = get_applications
+        error "#{manifest} must contain applications" if applications.nil?
       end
 
       def needs_key?
@@ -23,7 +25,14 @@ module DPL
       end
 
       def push_app
-        context.shell "./cf push#{manifest}"
+        if @applications.nil? || @applications.length==0
+          context.shell "./cf push -f #{manifest}"
+        else
+          settings = get_cf_variable_settings
+          context.shell "./cf push -f #{manifest} --no-start"
+          settings.each{ |set_env| context.shell "./cf set-env #{set_env[app]} #{set_env[key]} #{set_env[value]}" }
+          app_names_list.each{ |appname| context.shell "./cf start #{appname}" }
+        end
         context.shell "./cf logout"
       end
 
@@ -34,8 +43,40 @@ module DPL
       end
 
       def manifest
-        options[:manifest].nil? ? "" : " -f #{options[:manifest]}"
+        options[:manifest].nil? ? "manifest.yml" : "#{options[:manifest]}"
       end
+
+      def get_manifest
+        result = YAML.load_file(manifest)
+        return result
+      end
+
+      def get_applications
+        cf_manifest = get_manifest
+        applications = cf_manifest['applications']
+        return applications
+      end
+
+      def get_cf_variable_settings
+        env_settings = []
+        if options.member?(:env)
+          options[:env].each do |key, value|
+            if value.kind_of?(Hash)
+              if app_names_list.include?(key.to_s)
+                value.each do |k,v|
+                  env_settings.push({'app' => key, 'key' => k, 'value' => v})
+                end
+              else
+                print "warning #{key} application not defined in manifest"
+              end
+            else
+              app_names_list.each{ |appname| env_settings.push({'app' => appname, 'key' => key, 'value' => value})}
+            end
+          end
+        end
+        return(env_settings)
+      end
+
     end
   end
 end
