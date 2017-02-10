@@ -42,7 +42,8 @@ module DPL
       end
 
       def check_auth
-        puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222 Print HASH @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222"
+        puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@3333 Print HASH @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222"
+        puts options
         ATLAS_UPLOAD_KV_ARGS.each do |arg|
           puts "========= options[arg].inspect ===== #{options[arg].inspect}" if options.key?(arg)
         end
