@@ -67,7 +67,7 @@
       end
 
       def get_application_names
-        if ! defined?(@application_names)
+        if ! defined?(@application_names) || @application_names.nil?
           @application_names = []
           applications = get_applications
           applications.each { |app| @application_names.push(app['name']) }
