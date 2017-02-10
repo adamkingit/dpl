@@ -13,7 +13,7 @@ module DPL
     def initialize(*args)
       options = {}
       args.flatten.each do |arg|
-        next options.update(arg) if arg.is_a? Hash
+        //next options.update(arg) if arg.is_a? Hash
         die("invalid option %p" % arg) unless match = OPTION_PATTERN.match(arg)
         key = match[1].tr('-', '_').to_sym
         if options.include? key
