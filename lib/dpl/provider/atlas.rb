@@ -31,6 +31,10 @@ module DPL
       experimental 'Atlas'
 
       def deploy
+        puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222 Print HASH @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222"
+        ATLAS_UPLOAD_KV_ARGS.each do |arg|
+          puts "========= options[arg].inspect ===== #{options[arg].inspect}" if options.key?(arg)
+        end
         assert_app_present!
         install_atlas_upload
         super
