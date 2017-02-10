@@ -55,9 +55,12 @@
 
       def get_applications
         if ! defined?(@applications)
+          puts "@applications not defined"
           cf_manifest = get_manifest
           @applications = cf_manifest['applications']
         end
+        puts "Returning @applications"
+        puts @applications
         return @applications
       end
 
