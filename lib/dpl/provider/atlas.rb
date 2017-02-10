@@ -37,6 +37,10 @@ module DPL
       end
 
       def check_auth
+        puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222 Print HASH @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222"
+        ATLAS_UPLOAD_KV_ARGS.each do |arg|
+          puts "========= options[arg].inspect ===== #{options[arg].inspect}" if options.key?(arg)
+        end
         ENV['ATLAS_TOKEN'] = options[:token] if options[:token]
         error 'Missing ATLAS_TOKEN' unless ENV['ATLAS_TOKEN']
       end
