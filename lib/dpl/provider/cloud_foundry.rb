@@ -86,9 +86,11 @@
       def get_cf_variable_settings
         env_settings = []
         if !options[:env].nil?
+          puts "options[:env] not nill"
           app_names_list = get_application_names
           options[:env].each do |key, value|
             if value.kind_of?(Hash)
+              puts "env value is a Hash"
               if app_names_list.include?(key.to_s)
                 value.each do |k,v|
                   env_settings.push({'app' => key, 'key' => k, 'value' => v})
@@ -97,6 +99,7 @@
                 print "warning #{key} application not defined in manifest"
               end
             else
+              puts "env value is a value " << value
               app_names_list.each{ |appname| env_settings.push({'app' => appname, 'key' => key, 'value' => value})}
             end
           end
