@@ -93,6 +93,8 @@
             end
           end
         end
+        puts "returning env_settings"
+        puts env_settings
         return(env_settings)
       end
 
