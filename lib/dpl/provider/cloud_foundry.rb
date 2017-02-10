@@ -9,9 +9,10 @@
       end
 
       def check_auth
-        initial_go_tools_install
         puts "options =="
         puts options
+        initial_go_tools_install
+
         Array(options[:cfenv]).each do |arg_entry|
           puts "===============cfenv============"
           puts arg_entry
