@@ -80,12 +80,14 @@ module DPL
         end
 
         ATLAS_UPLOAD_KV_ARGS.each do |arg|
+          puts "========= options[arg].inspect ===== #{options[arg].inspect}" if options.key?(arg)
           args << ["-#{arg}", options[arg].inspect].join('=') if options.key?(arg)
         end
 
         ATLAS_UPLOAD_KV_MULTI_ARGS.each do |arg|
           next unless options.key?(arg)
           Array(options[arg]).each do |arg_entry|
+            puts "========= arg_entry.inspect ===== #{arg_entry.inspect}" 
             args << ["-#{arg}", arg_entry.inspect].join('=')
           end
         end
