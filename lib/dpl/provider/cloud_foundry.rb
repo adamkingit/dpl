@@ -77,7 +77,7 @@
 
       def get_cf_variable_settings
         env_settings = []
-        if options.member?(:env)
+        if !options[:env].nil?
           app_names_list = get_application_names
           options[:env].each do |key, value|
             if value.kind_of?(Hash)
