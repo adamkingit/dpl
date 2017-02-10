@@ -56,7 +56,7 @@
       end
 
       def get_applications
-        if ! defined?(@applications)
+        if ! defined?(@applications) || @applications.nil?
           puts "@applications not defined"
           cf_manifest = get_manifest
           @applications = cf_manifest['applications']
