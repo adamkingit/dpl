@@ -50,6 +50,8 @@
 
       def get_manifest
         result = YAML.load_file(manifest)
+        puts "read #{manifest}. Found"
+        puts result
         return result
       end
 
