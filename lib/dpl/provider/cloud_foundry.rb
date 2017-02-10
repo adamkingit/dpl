@@ -15,9 +15,10 @@
       end
 
       def check_app
+        @applications = nil
         error "Application must have a manifest.yml for unattended deployment. #{manifest} does not exist" unless File.exists? manifest
         @applications = get_applications
-        error "#{manifest} must contain applications" if applications.nil?
+        error "#{manifest} must contain applications" if @applications.nil?
       end
 
       def needs_key?
