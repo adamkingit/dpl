@@ -85,7 +85,8 @@
 
       def get_cf_variable_settings
         env_settings = []
-        if !options[:env].nil?
+        puts "get_cf_variable_settings - !options[:cfenv].nil? == #{!options[:cfenv].nil?}"
+        if !options[:cfenv].nil?
           puts "options[:env] not nill"
           app_names_list = get_application_names
           options[:env].each do |key, value|
