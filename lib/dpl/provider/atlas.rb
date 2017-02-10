@@ -70,6 +70,7 @@ module DPL
       end
 
       def atlas_upload_args
+        puts "*****************************************atlas_upload_args******************************************"
         return options[:args] if options.key?(:args)
         return @atlas_upload_args if @atlas_upload_args
 
@@ -87,7 +88,7 @@ module DPL
         ATLAS_UPLOAD_KV_MULTI_ARGS.each do |arg|
           next unless options.key?(arg)
           Array(options[arg]).each do |arg_entry|
-            puts "========= arg_entry.inspect ===== #{arg_entry.inspect}" 
+            puts "========= arg_entry.inspect ===== #{arg_entry.inspect}"
             args << ["-#{arg}", arg_entry.inspect].join('=')
           end
         end
