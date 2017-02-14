@@ -101,6 +101,7 @@ module DPL
 
         #If for some reason GitHub hasn't already created a release for the tag, create one
         if tag_matched == false
+          puts "Creating a release #{get_tag}"
           release_url = api.create_release(slug, get_tag, options.merge({:draft => true})).rels[:self].href
         end
 
