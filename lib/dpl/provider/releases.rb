@@ -92,13 +92,14 @@ module DPL
           release_url = "https://api.github.com/repos/" + slug + "/releases/" + options[:release_number]
         else
           releases.each do |release|
+            puts "Looking for #{release.tag_name} == #{get_tag} "
             if release.tag_name == get_tag
               release_url = release.rels[:self].href
               tag_matched = true
             end
           end
         end
-
+        puts "tag_matched == #{tag_matched}"
         #If for some reason GitHub hasn't already created a release for the tag, create one
         if tag_matched == false
           puts "Creating a release #{get_tag}"
