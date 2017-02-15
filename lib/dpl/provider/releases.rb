@@ -37,7 +37,10 @@ module DPL
       end
 
       def slug
-        options.fetch(:repo) { context.env['TRAVIS_REPO_SLUG'] }
+        sl = options.fetch(:repo) { context.env['TRAVIS_REPO_SLUG'] }
+        sla = sl.split('/')
+        repo = sla[1]
+        return(repo)
       end
 
       def releases
@@ -104,7 +107,7 @@ module DPL
         if tag_matched == false
           log "Creating a release #{get_tag} on repo #{slug}"
 #          log "options #{options}"
-          release_url = api.create_release(slug, get_tag, options).rels[:self].href
+          release_url = api.create_release(slug, get_tag, options.merge({:draft => true, :target_commitish => get_tag })).rels[:self].href
           log "Created release #{get_tag}"
           log "release_url==#{release_url}"
         end
