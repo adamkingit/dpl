@@ -66,7 +66,7 @@ module DPL
         log "Deploying to repo: #{slug}"
 
         context.shell 'git fetch --tags' if travis_tag.nil?
-        log "Current tag is: #{get_tag}"
+        log "The Current tag is: #{get_tag}"
       end
 
       def setup_auth
@@ -92,17 +92,17 @@ module DPL
           release_url = "https://api.github.com/repos/" + slug + "/releases/" + options[:release_number]
         else
           releases.each do |release|
-            puts "Looking for #{release.tag_name} == #{get_tag} "
+            log "Looking for #{release.tag_name} == #{get_tag} "
             if release.tag_name == get_tag
               release_url = release.rels[:self].href
               tag_matched = true
             end
           end
         end
-        puts "tag_matched == #{tag_matched}"
+        log "tag_matched == #{tag_matched}"
         #If for some reason GitHub hasn't already created a release for the tag, create one
         if tag_matched == false
-          puts "Creating a release #{get_tag}"
+          log "Creating a release #{get_tag}"
           release_url = api.create_release(slug, get_tag, options.merge({:draft => true})).rels[:self].href
         end
 
