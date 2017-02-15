@@ -118,6 +118,7 @@ module DPL
           log "existing_url==#{existing_url}"
           log "options[:overwrite]==#{options[:overwrite]}"
           if !existing_url
+            log "uploading file because it doesn't exist"
             upload_file(file, filename, release_url)
           elsif existing_url && options[:overwrite]
             log "#{filename} already exists, overwriting."
@@ -132,6 +133,10 @@ module DPL
       end
 
       def upload_file(file, filename, release_url)
+        log "upload_file"
+        log "file==#{file}"
+        log "filename==#{filename}"
+        log "release_url==#{release_url}"
         content_type = MIME::Types.type_for(file).first.to_s
         if content_type.empty?
           # Specify the default content type, as it is required by GitHub
