@@ -128,8 +128,9 @@ module DPL
             log "#{filename} already exists, skipping."
           end
         end
-
-        api.update_release(release_url, {:draft => false}.merge(options))
+        log "update_release #{release_url}"
+        upd = api.update_release(release_url, {:draft => false}.merge(options))
+        log "upd== #{upd}"
       end
 
       def upload_file(file, filename, release_url)
