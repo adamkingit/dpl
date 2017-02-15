@@ -104,6 +104,7 @@ module DPL
         if tag_matched == false
           log "Creating a release #{get_tag}"
           release_url = api.create_release(slug, get_tag, options.merge({:draft => true})).rels[:self].href
+          log "release_url==#{release_url}"
         end
 
         files.each do |file|
@@ -114,6 +115,8 @@ module DPL
               existing_url = existing_file.url
             end
           end
+          log "existing_url==#{existing_url}"
+          log "options[:overwrite]==#{options[:overwrite]}"
           if !existing_url
             upload_file(file, filename, release_url)
           elsif existing_url && options[:overwrite]
